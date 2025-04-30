@@ -24,11 +24,9 @@ pipeline {
                         }
         }
         stage('Four') {
-                                stage('Unit Test') {
-                                steps{
+                                steps {
                                         echo "Running the unit test..."
-                                }
-                        } 
+                                } 
 		}
         }
     }
