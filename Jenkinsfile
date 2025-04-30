@@ -1,45 +1,47 @@
 pipeline {
-    agent any 
+    agent any
     stages {
         stage('One') {
-            steps {
-                echo "We are running the build"
-            }
-        }
-        stage('Two') {
-            steps {
-                input('Do you want to proceed!')
-            }
-        }
-        stage('Three') {
-            when {
-                not {
-                    branch "main"
+                steps {
+                        echo 'Hi, this is Zulaikha from edureka'
+			
                 }
-            }
-            steps {
-                echo "hello"
-            }
+        }
+	    stage('Two'){
+		    
+		steps {
+			input('Do you want to proceed?')
+        }
+	    }
+        stage('Three') {
+                when {
+                        not {
+                                branch "master"
+                        }
+                }
+                steps {
+			echo "Hello"
+                        }
         }
         stage('Four') {
-            parallel {
-                stage('Unit Test') {
-                    steps {
-                        echo "Running the unit test...."
-                    }
-                }
-                stage('Integration Test'){
-                    agent {
-                        docker{
-                            reuseNode false
-                            image 'ubuntu'
+                parallel {
+                        stage('Unit Test') {
+                                steps{
+                                        echo "Running the unit test..."
+                                }
                         }
-                    }
-                }
-                    steps {
-                        echo "Running the integration test..."
-                    }
-                }
-            }
+                        stage('Integration test') {
+                        agent {
+                                docker {
+                                        reuseNode false
+					image 'ubuntu'
+                                        }
+			}
+				steps {
+					echo 'Running the integration test..'
+				}
+                               
+			}  }
         }
     }
+}
